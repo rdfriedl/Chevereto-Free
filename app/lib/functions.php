@@ -16,7 +16,7 @@
   --------------------------------------------------------------------- */
 
 namespace CHV;
-use G, DirectoryIterator, Exception;
+use G, DirectoryIterator, Exception, Hashids;
 
 if(!defined("access") or !access) die("This file cannot be directly accessed.");
 
@@ -361,51 +361,17 @@ function get_disabled_languages() {
 
 function cheveretoID($in, $action="encode") {
 	global $cheveretoID;
-	$index = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	$salt = getSetting('crypt_salt');
 	$id_padding = intval(getSetting('id_padding'));
 
-	// Use a stock version of the hashed values (faster execution)
-	if(isset($cheveretoID)) {
-		$passhash = $cheveretoID['passhash'];
-		$p = $cheveretoID['p'];
-		$i = $cheveretoID['i'];
-	} else {
-
-		for($n = 0; $n<strlen($index); $n++) {
-			$i[] = substr($index,$n ,1);
-		}
-
-		$passhash = hash('sha256',$salt);
-		$passhash = (strlen($passhash) < strlen($index)) ? hash('sha512',$salt) : $passhash;
-
-		for($n=0; $n < strlen($index); $n++) {
-			$p[] =  substr($passhash, $n ,1);
-		}
-
-		// Stock the crypting thing to don't do it every time
-		$cheveretoID = [
-			'passhash'	=> $passhash,
-			'p'			=> $p,
-			'i'			=> $i
-		];
+	if(!isset($cheveretoID)) {
+		$cheveretoID = new Hashids\Hashids($salt, 3);
 	}
-
-	array_multisort($p, SORT_DESC, $i);
-	$index = implode($i);
-
-	$base  = strlen($index);
 
 	if($action == 'decode') {
 		// Digital number  <<--  alphabet letter code
-		$out = 0;
-		$len = strlen($in) - 1;
-		for ($t = 0; $t <= $len; $t++) {
-		  $bcpow = bcpow($base, $len - $t);
-		  $out   = $out + strpos($index, substr($in, $t, 1)) * $bcpow;
-		}
-		$out = sprintf("%d", $out);
-		// $out = substr($out, 0, strpos($out, '.'));
+		$out = $cheveretoID->decode($in)[0];
+
 		if($id_padding > 0) {
 			$out = (string) ($out / $id_padding); // Always return as string
 		}
@@ -414,13 +380,7 @@ function cheveretoID($in, $action="encode") {
 		if($id_padding > 0) {
 			$in = $in * $id_padding;
 		}
-		$out = '';
-		for ($t = floor(log((float)$in, $base)); $t >= 0; $t--) {
-			$bcp = bcpow($base, $t);
-			$a   = floor($in / $bcp) % $base;
-			$out = $out . substr($index, $a, 1);
-			$in  = $in - ($a * $bcp);
-		}
+		$out = $cheveretoID->encode($in);
 	}
 
 	return $out;

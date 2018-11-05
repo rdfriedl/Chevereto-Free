@@ -37,6 +37,14 @@ if (!is_readable(dirname(__FILE__) . '/settings.php')) {
 // G thing
 (file_exists(dirname(dirname(__FILE__)) . '/lib/G/G.php')) ? require_once(dirname(dirname(__FILE__)) . '/lib/G/G.php') : die("Can't find lib/G/G.php");
 
+// Hashids
+if(file_exists(dirname(dirname(__FILE__)) . '/lib/Hashids/Hashids.php')) {
+    require_once(dirname(dirname(__FILE__)) . '/lib/Hashids/HashGenerator.php');
+    require_once(dirname(dirname(__FILE__)) . '/lib/Hashids/Hashids.php');
+} else {
+    die("Can't find lib/Hashids/Hashids.php");
+}
+
 // Require at least X memory to do the thing
 $min_memory = '256M';
 $memory_limit = ini_get('memory_limit');
