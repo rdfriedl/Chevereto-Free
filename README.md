@@ -41,14 +41,14 @@ On most servers, that's all you need. The system has a built-in system check tha
 ## Installation
 Chevereto Free can be installed in several different ways, it all depends on what suits you best.
 
-### ⚡Install using our Installer (recommended)
+### 🐳Install using Docker
+Docker allows you to easily install and maintain all the server dependencies with ease by using automated application containers. The ready-to-use Docker images are under [nmtan/chevereto](https://hub.docker.com/r/nmtan/chevereto/) (many thanks to [Tan Nguyen](https://github.com/tanmng))
+
+### ⚡Install using our Installer
 The installer is a single `.php` file which will download and extract the latest release for you.
 1. Download the [Chevereto Installer](https://chevereto.com/download/file/installer)
 2. Upload this file to your target destination (usually the `public_html` folder)
 3. Go to your website and follow the instructions
-
-### 🐳Install using Docker
-Docker allows you to easily install and maintain all the server dependencies with ease by using automated application containers. The ready-to-use Docker images are under [nmtan/chevereto](https://hub.docker.com/r/nmtan/chevereto/) (many thanks to [Tan Nguyen](https://github.com/tanmng) for making these!)
 
 ### ✨Install using Softaculous/Fantastico
 If your web hosting includes [Softaculous](https://softaculous.com/)/[Fantastico](https://netenberg.com/fantastico.php), you can install Chevereto Free with just one click. Chevereto Free should be available for one-click install under the "Image Galleries" category.
@@ -57,9 +57,6 @@ If your web hosting includes [Softaculous](https://softaculous.com/)/[Fantastico
  1. Download the [latest release](https://github.com/Chevereto/Chevereto-Free/releases/latest) of Chevereto Free
  2. Upload the contents of your download to your server (usually the `public_html` folder)
  3. Go to your website and follow the instructions
-
-### 🤙Install service (free) for cPanel hosting
-We will be happy to install Chevereto for you. Just send us an [installation request](https://chevereto.com/panel/request-installation),  and we will do all the installation for you for free. This service is only available for cPanel-based web hosting.
 
 For additional installation instructions, refer to our [official documentation](https://chevereto.com/docs/install).
 
@@ -70,7 +67,7 @@ Chevereto has a built-in system that checks for new updates every day via the [C
 To upgrade to our paid edition, simply navigate to your dashboard panel and click on the `upgrade` button.
 
 ## Support
-Chevereto Free is forked from previous paid releases, meaning that it inherits the bugs at that prior stage of development. Since this edition is always several months behind the paid edition, **any bug reporting is ignored**. For any other issue, feel free to ask in our <a href="https://chevereto.com/community-support">Community Support</a>.
+Use our [Bug Tracking](https://chevereto.com/bug-tracking) to report bugs and our [Community Support](https://chevereto.com/community-support) forums for any support concern.
 
 ## License
 Copyright [Rodolfo Berríos](http://rodolfoberrios.com) - Released under the AGPLv3 license.
